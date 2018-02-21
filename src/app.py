@@ -18,7 +18,7 @@ app.secret_key = os.getenv('APP_SECRET_KEY')
 app.config['PROPAGATE_EXCEPTIONS'] = True
 # Set up SQLAlchemy
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE1_URI', 'sqlite:///data.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 # Setup the Flask-JWT-Extended extension
 app.config['JWT_SECRET_KEY'] = os.getenv('APP_SECRET_KEY')
 
