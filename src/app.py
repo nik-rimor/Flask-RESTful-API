@@ -9,12 +9,16 @@ from src.resources.item import Item, ItemList
 from src.resources.store import Store, StoreList
 
 app = Flask(__name__)
+
+# Enable debugging mode
+app.config['DEBUG'] = True
+
 app.secret_key = os.getenv('APP_SECRET_KEY')
 # To allow flask propagating exception even if debug is set to false on app
 app.config['PROPAGATE_EXCEPTIONS'] = True
 # Set up SQLAlchemy
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE1_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE1_URI', 'sqlite:///data.db')
 # Setup the Flask-JWT-Extended extension
 app.config['JWT_SECRET_KEY'] = os.getenv('APP_SECRET_KEY')
 
@@ -33,6 +37,13 @@ api.add_resource(UserRegister, '/register')
 
 
 if __name__ == '__main__':
-    from db import db
+    from src.db import db
+
     db.init_app(app)
-    app.run(debug=True)
+
+    if app.config['DEBUG']:
+        @app.before_first_request
+        def create_tables():
+            db.create_all()
+
+    app.run(port=5000)
