@@ -1,4 +1,4 @@
-from db import db
+from src.db import db
 
 class StoreModel(db.Model):
     __tablename__ = "tblStores"
