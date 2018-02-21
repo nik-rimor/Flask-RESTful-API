@@ -5,7 +5,7 @@ Configuration Notes:
 
 app.py makes use of two environment variables
 
-	os.getenv('DATABASE1_URI')
+	os.getenv('DATABASE_URL')
 	os.getenv('APP_SECRET_KEY')
 
 You have to replace these calls with your variables, or set up these environment variables on your deployment environment/system.
