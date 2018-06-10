@@ -18,6 +18,9 @@ class StoreModel(db.Model):
             "items": [item.json() for item in self.items.all()]
         }
 
+    def check_empty(self):
+        return next((item.json() for item in self.items.all()), None)
+
     @classmethod
     def find_by_name(cls, name):
         return StoreModel.query.filter_by(name=name).first()

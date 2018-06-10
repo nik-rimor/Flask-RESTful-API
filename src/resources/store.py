@@ -35,7 +35,7 @@ class Store(Resource):
         if store is None:
             return {"message": "No item with name {} found!.".format(name)}, 404
 
-        if store.json():
+        if store.check_empty():
             return {"message": "Store cannot be deleted since there are items in its catalog!"}, 400
         else:
             try:
